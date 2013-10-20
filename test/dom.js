@@ -421,6 +421,25 @@ describe('.attr()', function(){
       assert('logo' == list.attr('id'));
     })
   })
+
+  describe('with an object of key value pairs', function(){
+    it('should set the attributes', function(){
+      var list = dom('<div><a></a><a></a></div>').find('a');
+      var ret = list.attr({ href : '#', rel : 'rels/attr-test'});
+      assert(ret == list);
+      assert('#' == list.get(0).getAttribute('href'));
+      assert('#' == list.get(1).getAttribute('href'));
+      assert('rels/attr-test' == list.get(0).getAttribute('rel'));
+      assert('rels/attr-test' == list.get(1).getAttribute('rel'));
+    })
+
+    it('should unset an attribute', function(){
+      var list = dom('<div><a href="/something"></a></div>').find('a');
+      list.attr({ href : null });
+      assert(null == list.get(0).getAttribute('href'));
+    })
+
+  })
 })
 
 describe('.prop()', function(){
