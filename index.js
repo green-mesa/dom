@@ -151,21 +151,17 @@ List.prototype.remove = function(){
 
 List.prototype.attr = function(name, val){
 
-  var obj;
-  // get
-  if (1 == arguments.length && "string" === typeof name) {
-    return this.els[0] && this.els[0].getAttribute(name);
-  }
-
   // set via object
-  if (1 == arguments.length && "object" === typeof name){
-    obj = name;
-    for (var attr in obj){
-      if (obj.hasOwnProperty(attr)){
-        this.attr(attr, obj[attr]);
-      }
+  if ("object" == typeof name){
+    for (var attr in name) {
+      this.attr(attr, name[attr]);
     }
     return this;
+  }
+
+  // get
+  if (1 == arguments.length) {
+    return this.els[0] && this.els[0].getAttribute(name);
   }
 
   // remove
