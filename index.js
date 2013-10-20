@@ -158,10 +158,10 @@ List.prototype.attr = function(name, val){
   }
 
   // set via object
-  if(1 == arguments.length && "object" === typeof name){
+  if (1 == arguments.length && "object" === typeof name){
     obj = name;
-    for(var attr in obj){
-      if(obj.hasOwnProperty(attr)){
+    for (var attr in obj){
+      if (obj.hasOwnProperty(attr)){
         this.attr(attr, obj[attr]);
       }
     }
