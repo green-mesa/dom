@@ -160,6 +160,17 @@ var url = dom('img').attr('src');
 dom('img').attr('src', 'image/of/maru.jpg');
 ```
 
+### .attr(obj)
+
+  Set attributes with an object
+
+```js
+dom('a').attr({
+  href : 'http://github.com',
+  rel : 'source'
+});
+```
+
 ### .ATTR()
 
   Attribute getters. These are functionally equivalent
