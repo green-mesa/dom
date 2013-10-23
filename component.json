@@ -1,6 +1,6 @@
 {
   "name": "dom",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "DOM traversal, manipulation and events aggregate library",
   "keywords": [
     "html",
@@ -20,7 +20,7 @@
     "component/classes": "1.1.2",
     "component/css": "0.0.2",
     "component/sort": "0.0.3",
-    "green-mesa/value": "1.1.0",
+    "green-mesa/value": "1.2.0",
     "component/query": "0.0.1",
     "component/matches-selector": "*",
     "yields/traverse": "*",
