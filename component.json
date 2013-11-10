@@ -19,7 +19,6 @@
     "component/domify": "1.0.0",
     "component/classes": "1.1.2",
     "component/css": "0.0.2",
-    "component/sort": "0.0.3",
     "green-mesa/value": "1.2.0",
     "component/query": "0.0.1",
     "component/matches-selector": "*",
