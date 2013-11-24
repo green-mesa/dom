@@ -144,9 +144,12 @@ List.prototype.remove = function(){
       if(id = node.__expando){
         for(var j = 0; j < eventRefs[id].length; ++j){
           events.unbind(node, eventRefs[id][j].evt, eventRefs[id][j].fn);
+          delete eventRefs[id][j];
         }
       }
+      return true;
     });
+    el.style.display = "";
     var parent = el.parentNode;
     if (parent) parent.removeChild(el);
   }
