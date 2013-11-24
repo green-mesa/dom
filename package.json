@@ -1,8 +1,8 @@
 {
   "name": "dom-component",
   "version": "0.11.0",
-  "repository": "component/dom",
-  "description": "DOM traversal, manipulation and events aggregate library",
+  "repository": "green-mesa/dom",
+  "description": "Fork of DOM traversal, manipulation and events aggregate library",
   "license": "MIT",
   "dependencies": {
     "mocha": "*"  

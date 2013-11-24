@@ -1,7 +1,8 @@
 {
   "name": "dom",
-  "version": "0.11.0",
-  "description": "DOM traversal, manipulation and events aggregate library",
+  "version": "0.12.0",
+  "repo" : "green-mesa/dom",
+  "description": "Fork of DOM traversal, manipulation and events aggregate library",
   "keywords": [
     "html",
     "dom",
