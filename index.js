@@ -15,6 +15,9 @@ var type = require('type');
 var trim = require('trim');
 var css = require('css');
 
+var eventRefs = {};
+var expando = 0;
+
 /**
  * Attributes supported.
  */
@@ -135,6 +138,15 @@ List.prototype.__iterate__ = function(){
 List.prototype.remove = function(){
   for (var i = 0; i < this.els.length; i++) {
     var el = this.els[i];
+    el.style.display = "none"; // hide it, if nothing else.
+    walkDOM(el, function( node ){
+      var id;
+      if(id = node.__expando){
+        for(var j = 0; j < eventRefs[id].length; ++j){
+          events.unbind(node, eventRefs[id][j].evt, eventRefs[id][j].fn);
+        }
+      }
+    });
     var parent = el.parentNode;
     if (parent) parent.removeChild(el);
   }
@@ -429,6 +441,7 @@ List.prototype.html = function(html){
  */
 
 List.prototype.on = function(event, selector, fn, capture){
+  var id, cur;
   if ('string' == typeof selector) {
     for (var i = 0; i < this.els.length; ++i) {
       fn._delegate = delegate.bind(this.els[i], selector, event, fn, capture);
@@ -440,7 +453,20 @@ List.prototype.on = function(event, selector, fn, capture){
   fn = selector;
 
   for (var i = 0; i < this.els.length; ++i) {
-    events.bind(this.els[i], event, fn, capture);
+    if (id = this.els[i].__expando){
+    } else {
+      id = ++expando;
+      this.els[i].__expando = id;
+    }
+    if(!eventRefs[id]){
+      eventRefs[id] = [];
+    }
+    cur = eventRefs[id].length;
+    eventRefs[id][cur] = {
+      evt : event,
+      fn : fn
+    };
+    events.bind(this.els[i], eventRefs[id][cur].evt, eventRefs[id][cur].fn, capture);
   }
 
   return this;
@@ -460,8 +486,9 @@ List.prototype.on = function(event, selector, fn, capture){
  */
 
 List.prototype.off = function(event, selector, fn, capture){
+  var id, i;
   if ('string' == typeof selector) {
-    for (var i = 0; i < this.els.length; ++i) {
+    for (i = 0; i < this.els.length; ++i) {
       // TODO: add selector support back
       delegate.unbind(this.els[i], event, fn._delegate, capture);
     }
@@ -471,12 +498,21 @@ List.prototype.off = function(event, selector, fn, capture){
   capture = fn;
   fn = selector;
 
-  for (var i = 0; i < this.els.length; ++i) {
-    events.unbind(this.els[i], event, fn, capture);
+  if (!selector){
+    for (i = 0; i < this.els.length; ++i) {
+      id = this.els[i].__expando;
+      for(var j = 0; j < eventRefs[id].length; ++j){
+        events.unbind(this.els[i], eventRefs[id][j].evt, eventRefs[id][j].fn);
+      }
+    }
+  } else {
+    for (i = 0; i < this.els.length; ++i) {
+      events.unbind(this.els[i], event, fn, capture);
+    }
   }
+  
   return this;
 };
-
 /**
  * Iterate elements and invoke `fn(list, i)`.
  *
@@ -820,4 +856,23 @@ attrs.forEach(function(name){
     return this.attr(name, val);
   };
 });
+
+/**
+ * Walk Dom `node` and call `func`.
+ *
+ * @param {Object} domNode, {Function} callback
+ * @return null
+ * @api private
+ */
+
+function walkDOM(node, func){
+  var go = func(node);
+  if(go){
+    node = node.firstChild;
+    while (node){
+      walkDOM(node, func);
+      node = node.nextSibling;
+    }
+  }
+};
 
