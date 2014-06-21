@@ -1,11 +1,26 @@
 {
-  "name": "dom-component",
-  "version": "0.11.0",
+  "name": "green-mesa-dom",
+  "version": "0.12.2",
   "repository": "green-mesa/dom",
   "description": "Fork of DOM traversal, manipulation and events aggregate library",
   "license": "MIT",
   "dependencies": {
-    "mocha": "*"  
+    "component-matches-selector": "0.1.4",
+    "component-query": "0.0.3",
+    "component-type": "1.0.0",
+    "component-event": "0.1.4",
+    "component-delegate": "0.2.2",
+    "component-indexof": "0.0.3",
+    "component-domify": "1.2.2",
+    "component-classes": "1.2.1",
+    "trim" : "0.0.1",
+    "green-mesa-css" : "0.0.2",
+    "green-mesa-value" : "1.1.6",
+    "green-mesa-traverse" : "0.1.1"
+
+  },
+  "devDependencies" : {
+    "mocha" : "*"
   },
   "testling": {
     "harness": "mocha",
@@ -13,6 +28,21 @@
       "dom.js",
       "test/*.js"
     ],
-    "browsers": ["chrome/22"]
+    "browsers": [
+      "chrome/22"
+    ]
+  },
+  "browser" : {
+    "matches-selector" : "component-matches-selector",
+    "query" : "component-query",
+    "type" : "component-type",
+    "event" : "component-event",
+    "delegate" : "component-delegate",
+    "indexof" : "component-indexof",
+    "domify" : "component-domify",
+    "classes" : "component-classes",
+    "css" : "green-mesa-css",
+    "value" : "green-mesa-value",
+    "traverse" : "green-mesa-traverse"
   }
 }
